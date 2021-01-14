@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dao" class="com.pyh.dao.UserDaoImpl"/>
+    <bean id="daoMysql" class="com.pyh.dao.UserDaoMysqlImpl"/>
+
+    <bean id="UserServiceImpl" class="com.pyh.service.UserServiceImpl">
+        <property name="userdao" ref="dao"></property>
+    </bean>
+</beans>
