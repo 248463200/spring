@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="com.pyh.pojo.User">
+        <constructor-arg name="name" value="pyh"/>
+        <constructor-arg name="age" value="23"/>
+    </bean>
+
+    <bean id="company" class="com.pyh.pojo.Company" name="c">
+        <property name="name" value="AliBaba"/>
+
+        <property name="users" ref="user"/>
+
+        <property name="computers">
+            <array>
+                <value>笔记本</value>
+                <value>台式机</value>
+                <value>服务器</value>
+            </array>
+        </property>
+
+        <property name="books">
+            <list>
+                <value>JAVA head first</value>
+                <value>高性能Mysql</value>
+                <value>Spring Cloud实战</value>
+            </list>
+        </property>
+
+        <property name="cards">
+            <map>
+                <entry key="idcard" value="110111192313123"></entry>
+                <entry key="bankcard" value="2132131"></entry>
+            </map>
+        </property>
+
+        <property name="cars">
+            <set>
+                <value>Benz</value>
+                <value>BWM</value>
+                <value>Audi</value>
+            </set>
+        </property>
+
+        <property name="describute">
+            <null></null>
+        </property>
+
+        <property name="info">
+            <props>
+                <prop key="driver">Mysql</prop>
+                <prop key="connect">localhost:3306/database</prop>
+                <prop key="username">root</prop>
+                <prop key="password">password</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
