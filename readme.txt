@@ -30,7 +30,13 @@ spring-06-beanscope:
                                     存储在ServletContext中，可直接通过ServletContext获取。
                     5.websocket
 
-spring-07-autowired:
+spring-07-autowired1:
     bean的自动装配的两种方式：
         1.ByName:需要保证bean的唯一，并且这个bean需要和自动注入的属性set方法值一致
         2.ByType:需要保证bean的class唯一，并且这个bean需要和自动注入的属性的类型一致
+
+spring-08-autowired2:
+    使用注解实现自动装配：@Resource和@Autowired
+    区别：
+    @Autowired是Spring提供的注解，是通过byType的方法注入的,如果byType不唯一可通过@Qualifier指定
+    @Resource是java提供的注解，默认通过byName，找不到则通过ByType
