@@ -13,6 +13,7 @@
         <module>spring-01-ioc2</module>
         <module>spring-03-ioc3</module>
         <module>spring-04-ioc4</module>
+        <module>spring-05-pc</module>
     </modules>
 
     <dependencies>
