@@ -15,6 +15,7 @@
         <module>spring-04-ioc4</module>
         <module>spring-05-pc</module>
         <module>spring-06-beanscope</module>
+        <module>spring-07-autowired1</module>
     </modules>
 
     <dependencies>

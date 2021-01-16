@@ -14,3 +14,23 @@ spring-04-di:
 
 spring-05-cp:
     p标签和c标签
+
+spring-06-beanscope:
+    bean的6种作用域：1.singleton：单例 每次get都是同一个
+                    2.prototype：多例 每次get都创建一个新的实例
+                    3.request：request作用域将bean的使用范围限定在一个http请求中，对于每一个请求，都会单独创建一个bean
+                    4.session：session作用域将bean的使用范围一次在一次http会话中，对于每一个会话，Spring容器都会创建一个单独的bean，若session被销毁，则bean也随之销毁
+                    5.application： 在Servlet程序中，有一个全局的ServletContext对象，这个对象被整个web应用所共享，
+                                    我们可以通过setAttribute方法向其中添加全局共享的数据。而Spring中，application作用域就是这么实现的，
+                                    作用域为application的bean，将会被作为ServletContext的属性，存储在其中，然后可以被全局访问，
+                                    而且一个ServletContext只会存储这个bean的一个实例对象。ServletContext被销毁，这个bean自然也跟着被销毁。
+                                    这好像有点类似于singleton这个作用域，确实非常类似，但是也有一些区别。
+                                    单例bean是一个Spring只会创建一个，而这里的却是每个ServletContext包含一个，不论有多少Spring容器，
+                                    bean的数量只取决于ServletContext，而且单例bean只能通过容器去获取，是隐式的，而这种作用域的bean却是公开的，
+                                    存储在ServletContext中，可直接通过ServletContext获取。
+                    5.websocket
+
+spring-07-autowired:
+    bean的自动装配的两种方式：
+        1.ByName:需要保证bean的唯一，并且这个bean需要和自动注入的属性set方法值一致
+        2.ByType:需要保证bean的class唯一，并且这个bean需要和自动注入的属性的类型一致
