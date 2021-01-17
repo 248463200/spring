@@ -40,3 +40,14 @@ spring-08-autowired2:
     区别：
     @Autowired是Spring提供的注解，是通过byType的方法注入的,如果byType不唯一可通过@Qualifier指定
     @Resource是java提供的注解，默认通过byName，找不到则通过ByType
+
+spring-10-proxy1：
+    静态代理模式
+
+spring-11-proxy12：
+    动态代理模式
+    使用Proxy代理类和InvocationHandel类
+    动态代理模式好处：1.可使真实角色操作更加纯粹，不用关注一些公共的业务
+                    2.公共也就交给代理角色，实现业务分工
+                    3.公共业务发生拓展的时候，方便集中管理
+                    4.一个动态代理类代理的是一个接口，一般对应的一类业务

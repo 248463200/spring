@@ -18,6 +18,8 @@
         <module>spring-07-autowired1</module>
         <module>spring-08-autowired2</module>
         <module>spring-09-anno</module>
+        <module>spring-10-proxy1</module>
+        <module>spring-11-proxy2</module>
     </modules>
 
     <dependencies>
