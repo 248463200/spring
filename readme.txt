@@ -53,4 +53,11 @@ spring-11-proxy12：
                     4.一个动态代理类代理的是一个接口，一般对应的一类业务
 
 spring-12-aop1：
-    定义切面和后置通知
+    使用SpringAPI接口实现 切面和后置通知
+
+spring-13-aop2：
+    配置类自定义来实现AOP的前置和后置
+
+spring-13-aop2：
+    使用注解来实现AOP的前置后置和环绕
+    注：使用注解要在applicationContext.xml开启aop  <aop:aspectj-autoproxy/>
