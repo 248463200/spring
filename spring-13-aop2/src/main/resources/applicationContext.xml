@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <bean id="userService" class="com.pyh.UserServiceImpl"></bean>
-    <bean id="log" class="com.pyh.A"/>
+    <bean id="log" class="com.pyh.AspectLog"/>
 
     <aop:config>
         <aop:aspect ref="log">
