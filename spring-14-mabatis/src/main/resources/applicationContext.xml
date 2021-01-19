@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/tx
+     	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <!-- 引入数据库信息文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!-- 启用事务注解 -->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
+
+
+    <bean id="sqlSessionFactory"
+          class="com.pyh.base.mybatis.PackagesSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.pyh.module.**.*.entity"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:com/pyh/module/**/dao/**/*Mapper.xml"/>
+    </bean>
+
+
+    <!-- spring与mybatis整合配置，扫描所有dao -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.pyh.module.**.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- 对dataSource配置声明式事务 -->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 事务管理通知 -->
+    <tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
+        <tx:attributes>
+            <!-- update,delete,save 等开头的方法进行事务管理,只要有异常就让它回滚 -->
+            <tx:method name="update*" propagation="REQUIRED"
+                       rollback-for="java.lang.Throwable"/>
+            <tx:method name="delete*" propagation="REQUIRED"
+                       rollback-for="java.lang.Throwable"/>
+            <tx:method name="clear*" propagation="REQUIRED"
+                       rollback-for="java.lang.Throwable"/>
+            <tx:method name="save*" propagation="REQUIRED"
+                       rollback-for="java.lang.Throwable"/>
+            <tx:method name="remove*" propagation="REQUIRED"
+                       rollback-for="java.lang.Throwable"/>
+            <!-- 开启只读,增加数据库的访问性能 -->
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="list*" read-only="true"/>
+            <tx:method name="count*" read-only="true"/>
+            <!-- 对其他方法 使用默认的事务管理 -->
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+    <!--配置前置后置log-->
+    <bean id="aspectlog" class="com.pyh.base.log.AspectLog"/>
+    <aop:config>
+        <aop:aspect ref="aspectlog">
+            <aop:pointcut id="pointcut" expression="execution(* com.pyh.module..service.impl..*.*(..))"/>
+            <aop:before method="before" pointcut-ref="pointcut"/>
+            <aop:after method="after" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!--配置aop事务-->
+    <aop:config>
+        <aop:pointcut id="txPointCut" expression="execution(* com.pyh.module..service.impl..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    </aop:config>
+
+
+    <context:component-scan base-package="com.pyh">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+    </context:component-scan>
+</beans>
