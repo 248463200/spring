@@ -61,3 +61,6 @@ spring-13-aop2：
 spring-13-aop2：
     使用注解来实现AOP的前置后置和环绕
     注：使用注解要在applicationContext.xml开启aop  <aop:aspectj-autoproxy/>
+
+spring-14-mybatis：
+    Spring整合Mybatis
