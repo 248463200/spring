@@ -18,6 +18,40 @@
     <!-- 启用事务注解 -->
     <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
 
+    <bean id="dataSource" class="com.pyh.base.db.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <!-- 配置多数据源 -->
+                <entry value-ref="masterDataSource" key="masterDataSource"></entry>
+                <entry value-ref="slaveDataSource" key="slaveDataSource"></entry>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="masterDataSource"></property>
+    </bean>
+
+    <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${master.url}"/>
+        <property name="username" value="${master.username}"/>
+        <property name="password" value="${master.password}"/>
+
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="20"/>
+
+    </bean>
+
+    <bean id="slaveDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="${slave.url}"/>
+        <property name="username" value="${slave.username}"/>
+        <property name="password" value="${slave.password}"/>
+
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="20"/>
+
+    </bean>
 
     <bean id="sqlSessionFactory"
           class="com.pyh.base.mybatis.PackagesSqlSessionFactoryBean">
@@ -67,11 +101,14 @@
 
     <!--配置前置后置log-->
     <bean id="aspectlog" class="com.pyh.base.log.AspectLog"/>
+    <bean id="controllerAop" class="com.pyh.base.log.ControllerAop" />
+
     <aop:config>
-        <aop:aspect ref="aspectlog">
-            <aop:pointcut id="pointcut" expression="execution(* com.pyh.module..service.impl..*.*(..))"/>
-            <aop:before method="before" pointcut-ref="pointcut"/>
-            <aop:after method="after" pointcut-ref="pointcut"/>
+        <aop:aspect ref="controllerAop">
+            <aop:pointcut id="pointcut" expression="execution(* com.pyh.module..controller..*.*(..))"/>
+            <!--<aop:before method="before" pointcut-ref="pointcut"/>
+            <aop:after method="after" pointcut-ref="pointcut"/>-->
+            <aop:around method="handlerControllerMethod" pointcut-ref="pointcut" />
         </aop:aspect>
     </aop:config>
 

@@ -15,7 +15,6 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     public List<UserEntity> list(Map<String,Object> map) {
-        System.out.println("查询user集合");
         return userMapper.list(map);
     }
 }

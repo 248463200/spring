@@ -1,7 +1,7 @@
 package com.pyh.module.user.dao;
 
 import com.pyh.module.user.entity.UserEntity;
-import com.pyh.base.dao.BaseMapper;
+import com.pyh.base.dao.CommonMapper;
 
-public interface UserMapper extends BaseMapper<UserEntity> {
+public interface UserMapper extends CommonMapper<UserEntity> {
 }
