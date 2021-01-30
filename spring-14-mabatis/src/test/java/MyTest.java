@@ -1,14 +1,10 @@
-import com.pyh.module.user.entity.UserEntity;
+import com.pyh.module.user.controller.UserController;
 import com.pyh.module.user.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)// SpringJUnit支持，由此引入Spring-Test框架支持！
@@ -17,11 +13,23 @@ public class MyTest {
 
     @Autowired
     private UserService userService;
-    @Test
+
+
+   /* @Test
     public void Test(){
         Map<String,Object> condition = new HashMap<String, Object>();
         condition.put("id",1);
         List<UserEntity> u1 =  userService.list(condition);
-        System.out.println(u1);
+        ResultBean bean = new ResultBean<List<UserEntity>>(u1);
+        System.out.println(bean);
+    }*/
+
+
+    @Autowired
+    private UserController userController;
+    @Test
+    public void Test2(){
+        userController.getUserList();
     }
+
 }

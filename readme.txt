@@ -7,7 +7,7 @@ spring-02-ioc2:IOC
     交给Spring来Service对象
 
 spring-03-ioc2:bean初始化
-    在配置被加载的时候吗，bean就被创建好了
+    在配置被加载的时候，bean就被创建好了
 
 spring-04-di:
     bean的几种类型的注入和别名

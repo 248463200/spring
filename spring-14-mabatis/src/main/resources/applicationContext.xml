@@ -39,6 +39,19 @@
         <property name="minIdle" value="1"/>
         <property name="maxActive" value="20"/>
 
+        <!-- 连接等待超时时间 -->
+        <property name="maxWait" value="30000"/>
+
+        <!-- 间隔多久进行一次检测需要关闭的空闲连接（单位毫秒 ）-->
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+
+        <!-- 配置连接在连接池中最小生存时间（单位毫秒 ）-->
+        <property name="minEvictableIdleTimeMillis" value="100000"/>
+
+        <property name="validationQuery" value="SELECT 1"/>
+
+        <!-- 监听拦截的filters -->
+        <property name="filters" value="stat"/>
     </bean>
 
     <bean id="slaveDataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -51,6 +64,19 @@
         <property name="minIdle" value="1"/>
         <property name="maxActive" value="20"/>
 
+        <!-- 连接等待超时时间 -->
+        <property name="maxWait" value="30000"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="30000"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="100000"/>
+
+        <property name="validationQuery" value="SELECT 1"/>
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat"/>
     </bean>
 
     <bean id="sqlSessionFactory"
